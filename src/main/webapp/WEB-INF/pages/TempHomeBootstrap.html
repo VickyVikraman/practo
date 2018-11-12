@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practo</title>
+	<script type="text/javascript" th:src="@{/assets/js/jquery-3.1.1.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/bootstrap.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/bootstrap-multiselect.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/datepicker.js}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/bootstrap-multiselect.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/datepicker.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/styles.css}">
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+</head>
+<body>
+	<div class="container-fluid main-wrapper">
+		<!-- Header section starts -->
+		<div class="header">
+			<span class="pull-right add-link">
+				<a data-toggle="modal" data-target="#myModal">Add Zoho Account asd</a>
+				<span> | </span>
+				<a th:href="@{/tasks}">All Sync Requests</a>
+			</span>
+		</div>
+		<!-- Header section ends -->
+
+		<!-- Main wrapper starts -->
+		<div class="main-wrapper">
+
+			<!-- Search filter section starts -->
+			<div class="search-filter">
+				<p class="sub-title">Financial Accounting</p>
+				<div class="filter-section" id="stickyfilter">
+						<div class="search-header">
+							<label class="thick-label-medium">SEARCH RECORDS</label>
+							
+						</div>
+						<div class="search-body">
+							<form th:action="@{/}" th:object="${search}" method="post">
+								<div class="input-block pad-l0 pull-left">
+									<label class="filter-label">Date (From)</label><br>
+									<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker" name="from_date">
+								</div>
+								<div class="input-block pull-left">
+									<label class="filter-label">Date (To)</label><br>
+									<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker" name="to_date">
+								</div>
+								<div class="input-block pull-left">
+									<label class="filter-label">Export for</label><br>
+									<select class="form-control selectpicker" name="select">
+										<option value="Hospital">Hospital</option>
+									</select>
+								</div>
+								<div class="input-block pull-left">
+									<label class="filter-label">Voucher Date (From)</label><br>
+									<input type="text" placeholder="dd/mm/yyyy" th:class="(${search.voucherTo} != '' AND ${search.voucherFrom}== '')? 'form-control width-140 datepicker invalid' : 'form-control width-140 datepicker'" th:field="*{voucherFrom}">
+								</div>
+								<div class="input-block pull-left">
+									<label class="filter-label">Voucher Date (To)</label><br>
+									<input type="text" placeholder="dd/mm/yyyy" th:class="(${search.voucherFrom} != '' AND ${search.voucherTo}== '')? 'form-control width-140 datepicker invalid' : 'form-control width-140 datepicker'" th:field="*{voucherTo}">
+								</div>
+								<div class="input-block multisel pull-left">
+									<label class="filter-label">Voucher Type</label><br>
+									<select class="form-control selectpicker" id="voucher-types" multiple="multiple" th:field="*{voucherTypeList}">
+										<option value="Consignment Issue">Consignment Issue</option>
+										<option value="HOSPBILLS">Hospbills</option>
+										<option value="Pharmacy Discount">Pharmacy Discount</option>
+										<option value="Inventory Transaction">Inventory Transaction</option>
+										<option value="Payment">Payment</option>
+										<option value="Payment Due">Payment Due</option>
+										<option value="Payment Due">Pharma Bills</option>
+										<option value="Payment Due">Purchase</option>
+										<option value="Receipt">Receipt</option>
+										<option value="Stock Consumption">Stock Consumption</option>
+										<option value="Stock Transfer">Stock Transfer</option>
+										<option value="Stock Returns">Stock Returns</option>
+										<option value="User / Department Issue">User / Department Issue</option>
+									</select>
+								</div>
+								<div class="input-block pull-left">
+									<label class="filter-label">Center</label><br>
+									<select class="form-control selectpicker" name="select">
+										<option>001</option>
+									</select>
+								</div>
+								<div class="input-block filter-buttons pull-left">
+									<button type="submit" class="btn button-transparent">Search</button>
+								</div>
+								
+							</form>
+							<div class="input-block filter-buttons pull-left">
+								<form th:action="@{/clear}" method="post">
+									<button type="submit" class="btn button-transparent">Clear</button>
+								</form>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<h4 class="input-block" th:if="${zohosyncmessage}!=''" th:text="${zohosyncmessage}"></h4>
+					</div>
+			</div>
+			<!-- Search filter section ends -->
+
+			<!-- Summary section starts -->
+			<form method="post" th:action="@{/zoho}">
+			<div th:each="result,status : ${results}">
+				<div class="col-md-8 col-sm-12 pad-l0 table-pad-r0" th:if="${results != null}">
+					<div class="">
+						<label class="thick-label-medium title-padding">DETAILS</label>
+						<div class="details-block" >
+							<div class="details-heading">
+									<input type="checkbox" class="hide" th:value="${result.id}" th:name="ids[]" checked>
+									
+									<span class="details-title">Voucher Type: </span> <p class="table-head-label" th:text="${result.journalRecords[0].voucherType}"></p>
+									<span class="details-title">Voucher No: </span><p class="table-head-label" th:text="${result.journalRecords[0].voucherNo}"></p>
+									<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No.BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+									<span class="sync-block" th:if="${result.status == true}">
+										<a class="sync-modal-link-synced" data-toggle="modal" data-parameter="${result.journalRecords[0].voucherNo}" th:text="Synced"></a>
+										<span><img th:src="@{/images/tick.png}" class="tick"></span>
+									</span>
+									<span class="sync-block" th:if="${result.status == false || result.status == null}">
+										<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal" th:text="Unsynced"></a>
+										<span><img th:src="@{/images/cross.png}" class="cross"></span>
+									</span>
+							</div>
+							<div class="summary-table">
+								<table>
+									<thead>
+										<tr>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="journalRecord : ${result.journalRecords}">
+											<td th:text="${journalRecord.creditAccount}"></td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right"><div th:text="${journalRecord.accountType=='debit'? journalRecord.netAmount : '0.00'}"></div></td>
+											<td class="text-right"><div th:text="${journalRecord.accountType=='credit'? journalRecord.netAmount : '0.00'}"></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>	
+						</div>
+						
+						</div>
+					<!--  </div>
+				</div>-->
+			
+			<!-- Summary section ends -->
+
+			<!-- Details section starts -->
+			<div class="col-md-4 col-sm-12 summary-block" th:each="journalRecord : ${result.journalRecords}"  th:if="${result.journalRecords.size() > 0}">
+				<label class="thick-label-medium title-padding">SUMMARY</label><br>
+					<label class="thick-label-medium">Receipt and Claims</label>
+						<div class="summary-table">
+							<table class="table-bottom-no-border">
+								<thead>
+									<tr>
+										<th colspan="3">Account</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="instance: ${summary}">
+										<td colspan="3" th:text="${instance.key}"></td>
+										<td class="text-right" th:each="val: ${instance.value}">
+											<div th:text="${val.key == 'debit' ? val.value : '0.00'}"></div>
+										</td>
+										<td class="text-right" th:each="val: ${instance.value}">
+											<div th:text="${val.key == 'credit' ? val.value : '0.00'}"></div>
+										</td>
+									</tr>
+									<!--  <tr>
+										<td colspan="3">Counter Reciepts</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td colspan="2"></td>
+										<td colspan="1" class="text-right">TOTAL</td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					<!--  <label class="thick-label-medium">Bills</label><br>
+						<div class="summary-table">
+							<table class="table-bottom-no-border">
+								<thead>
+									<tr>
+										<th colspan="3">Account</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="3">Medivisa</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td colspan="3">Counter Reciepts</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td colspan="2"></td>
+										<td colspan="1" class="text-right">TOTAL</td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<label class="thick-label-medium">Purchase</label><br>
+						<div class="summary-table">
+							<table class="table-bottom-no-border">
+								<thead>
+									<tr>
+										<th colspan="3">Account</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="3">Medivisa</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td colspan="3">Counter Reciepts</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td colspan="2"></td>
+										<td colspan="1" class="text-right">TOTAL</td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+										<td class="text-right"><label class="font11">0.00</label></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>-->
+					</div>
+				
+			<!-- Details section ends -->
+				<!--  </div>-->
+			<!-- Main wrapper ends -->
+			
+		<!-- Footer section starts -->
+				<div class="footer text-right">
+					<button type="submit" class="btn button-transparent" id="zohoSync">Sync to Zoho</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+	<!-- Footer section ends -->
+	<!-- Modal starts -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Practo Credentials</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Authtoken</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Organization id</label>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default">Update</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- Modal Content ends -->
+		</div>
+	</div>
+	<!-- Modal ends -->
+	<!-- Modal starts -->
+	<div class="modal fade" id="sync-modal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+			
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Log</h4>
+					<br>
+					<label>05-01-2018<span class="details-title">Voucher Type:</span> Journal <span class="details-title">Voucher No:</span> BL000023 <span class="details-title">Other Details:</span> Bill No.BL000023 (MR No. MR000021)</label>
+				</div>
+				<table class="table table-striped">
+					<tr>
+						<th>Date</th>
+						<th>Reason</th>
+					</tr>
+					<tr th:each="log : ${logs}" th:if="${log.voucherId == voucherNo">
+						<td th:text="${log.syncDate}"></td>
+						<td th:text="${log.reason}"></td>
+					</tr>
+				</table>
+				<!--  <div class="modal-body pad0">
+					<div class="modal-footer">
+						<div class="col-sm-6 col-xs-6 left-block pad0">
+							<div class="time">
+								<span title="Dec 12 2016 - 2:30 PM">Dec 12 2016 - 2:30 PM</span>
+								<span>
+									<img th:src="@{/images/tick.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 1:30 PM">Dec 12 2016 - 1:30 PM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 12:30 PM">Dec 12 2016 - 12:30 PM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 11:30 AM">Dec 12 2016 - 11:30 AM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-6 d-iblock pad0">
+							<div class="time" title="Successfully synced.">Successfully synced.</div>
+							<div class="time" title="Network Error">Network Error</div>
+							<div class="time" title="Incomplete data (Credit - Debit mismatch)">Incomplete data (Credit - Debit mismatch)</div>
+							<div class="time" title="Incomplete data (Credit - Debit mismatch)">Incomplete data (Credit - Debit mismatch)</div>
+						</div>
+					</div>
+				</div>-->
+			</div>
+			<!-- Modal Content ends -->
+		</div>
+	</div>
+	<!-- Modal ends -->
+</body>
+</html>

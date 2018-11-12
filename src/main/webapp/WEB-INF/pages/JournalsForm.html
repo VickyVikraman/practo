@@ -1,0 +1,442 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/styles.css" />" >
+	<link href="<c:url value="/assets/fonts/CamphorPro-Regular.ttf" />" >
+	<link href="<c:url value="/assets/fonts/CamphorPro-Bold.ttf" />" >
+	<script type="text/javascript" src="<c:url value="/assets/js/jquery-3.1.1.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/assets/js/script.js" />" ></script>
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/semantic-2.2.13.min.css" />" >
+    <script type="text/javascript" src="<c:url value="/assets/js/semantic-2.2.13.min.js" />" ></script>
+</head>
+<body>
+	<div class="main-wrapper">
+		<!-- Header section starts -->
+		<div class="main-header ui items">
+			<div class="add-link">
+			<i class="sidebar icon hamburger-menu"></i>
+				<!-- <a id='credential-modal'> Add Zoho Account </a>
+				<span class="header-span"> | </span>
+				<a  href="tasks.html"> All Sync Requests </a> -->
+				<ul class="ui right header-ul">
+					<button class="home-btn">
+						<i class="home icon header-icons"></i> Home
+					</button>
+					<li>
+						<a class="home-btn" href="#" id="audit-log-modal"><i class="info icon header-icons custom-head-icon"></i> Export Logs</a>
+					</li>
+					<li>
+						<a class="home-btn" href="#" id="toast-danger"><i class="window close icon header-icons custom-head-icon"></i> Error sample </a>
+					</li>
+					<li>
+						<a class="home-btn" href="#"><i class="help icon header-icons"></i> Help</a>
+					</li>
+					<li>
+						<a class="home-btn" ><i class="user icon header-icons"></i> User</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- Header section ends -->
+
+		<!-- Main wrapper starts -->
+		<div class="main-wrapper">
+			<!-- Search filter section starts -->
+			<div class="search-filter">
+				<div class="task-head-bar">
+					<form>
+					<p class="sub-title d-iblock">All Sync Requests</p>
+					<div class="search-body pad-l0 ">
+						<div class="input-block pull-left pad-l0 d-iblock">
+							<label class="filter-label d-iblock">Task From</label>
+							<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker d-iblock" name="voucher_from_date">
+						</div>
+						<div class="input-block pull-left d-iblock">
+							<label class="filter-label d-iblock">Task To</label>
+							<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker d-iblock" name="voucher_to_date">
+						</div>
+						<div class="input-block filter-buttons pull-left">
+						<button class="btn button-transparent">Search</button>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<br>
+			<!-- Search filter section ends -->
+			<div class="ui grid padded stackable">
+				<!-- Summary section starts -->
+				<div class="ui five wide column table-pad-none">
+					<label class="thick-label-medium">SUMMARY</label>
+					<div class="summary-table">
+						<table class="table-bottom-no-border ui unstackable table task-table">
+							<thead>
+								<tr>
+									<th colspan="3">Date</th>
+									<th class="text-right">Time</th>
+									<th class="text-right">Records</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-href='#'>
+									<td colspan="3">09-01-2018</td>
+									<td>05:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">08-01-2018</td>
+									<td>05:25 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">08-01-2018</td>
+									<td>05:23 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">08-01-2018</td>
+									<td>05:21 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">08-01-2018</td>
+									<td>05:20 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">07-01-2018</td>
+									<td>04:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">07-01-2018</td>
+									<td>04:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">07-01-2018</td>
+									<td>04:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-href='#'>
+									<td colspan="3">07-01-2018</td>
+									<td>04:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-hred="#">
+									<td colspan="3">06-01-2018</td>
+									<td>04:30 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+								<tr data-hred="#">
+									<td colspan="3">06-01-2018</td>
+									<td>03:25 PM</td>
+									<td> Bill No.BL000023</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- Summary section ends -->
+				<!-- Details section starts -->
+				<div class="ui eleven wide column table-pad-r0">
+					<label class="thick-label-medium">NUMBER OF RECORDS (45)</label><br><br>
+					<div class="details-block pad0">
+						<div class="ui styled fluid accordion">
+						  <div class="title">
+						    <i class="dropdown icon"></i>
+						    <div class="details-heading d-iblock">
+								<span class="modal-details-title">Export Date & Time: </span><label> 05-01-2018, 12:00:00 PM ,</label>
+								<span class="modal-details-title">Export Status: </span><label> Success ,</label>
+								<span class="modal-details-title">No. of Vouchers: </span><label> 03 ,</label>
+								<span class="modal-details-title">User: </span><label> InstaAdmin</label>
+							</div>
+						  </div>
+						  <div class="content">
+						    <div class="transition hidden summary-table">
+								<table class="ui unstackable table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Voucher Type</th>
+											<th>Voucher No.</th>
+											<th>Other Details</th>
+											<th>Status</th>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>01</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Error</td>
+											<td>Counter Reciepts</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Success</td>
+											<td>IP IncomePharmacy Credit Sales</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						  </div>
+						</div>
+						<div class="ui styled fluid accordion">
+						  <div class="title">
+						    <i class="dropdown icon"></i>
+						    <div class="details-heading d-iblock">
+								<span class="modal-details-title">Export Date & Time: </span><label> 05-01-2018, 12:00:00 PM ,</label>
+								<span class="modal-details-title">Export Status: </span><label> Success ,</label>
+								<span class="modal-details-title">No. of Vouchers: </span><label> 03 ,</label>
+								<span class="modal-details-title">User: </span><label> InstaAdmin</label>
+							</div>
+						  </div>
+						  <div class="content">
+						    <div class="transition hidden summary-table">
+								<table class="ui unstackable table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Voucher Type</th>
+											<th>Voucher No.</th>
+											<th>Other Details</th>
+											<th>Status</th>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>01</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Error</td>
+											<td>Counter Reciepts</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Success</td>
+											<td>IP IncomePharmacy Credit Sales</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						  </div>
+						</div>
+						<div class="ui styled fluid accordion">
+						  <div class="title">
+						    <i class="dropdown icon"></i>
+						    <div class="details-heading d-iblock">
+								<span class="modal-details-title">Export Date & Time: </span><label> 05-01-2018, 12:00:00 PM ,</label>
+								<span class="modal-details-title">Export Status: </span><label> Success ,</label>
+								<span class="modal-details-title">No. of Vouchers: </span><label> 03 ,</label>
+								<span class="modal-details-title">User: </span><label> InstaAdmin</label>
+							</div>
+						  </div>
+						  <div class="content">
+						    <div class="transition hidden summary-table">
+								<table class="ui unstackable table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Voucher Type</th>
+											<th>Voucher No.</th>
+											<th>Other Details</th>
+											<th>Status</th>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>01</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Error</td>
+											<td>Counter Reciepts</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Success</td>
+											<td>IP IncomePharmacy Credit Sales</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						  </div>
+						</div>
+						<div class="ui styled fluid accordion">
+						  <div class="title">
+						    <i class="dropdown icon"></i>
+						    <div class="details-heading d-iblock">
+								<span class="modal-details-title">Export Date & Time: </span><label> 05-01-2018, 12:00:00 PM ,</label>
+								<span class="modal-details-title">Export Status: </span><label> Success ,</label>
+								<span class="modal-details-title">No. of Vouchers: </span><label> 03 ,</label>
+								<span class="modal-details-title">User: </span><label> InstaAdmin</label>
+							</div>
+						  </div>
+						  <div class="content">
+						    <div class="transition hidden summary-table">
+								<table class="ui unstackable table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Voucher Type</th>
+											<th>Voucher No.</th>
+											<th>Other Details</th>
+											<th>Status</th>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>01</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Error</td>
+											<td>Counter Reciepts</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+										<tr>
+											<td>02</td>
+											<td>Journal</td>
+											<td>BL000023</td>
+											<td>Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</td>
+											<td>Success</td>
+											<td>IP IncomePharmacy Credit Sales</td>
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right">0.00</td>
+											<td class="text-right">0.00</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						  </div>
+						</div>						
+					</div>
+				</div>
+				<!-- Details section ends -->
+			</div>
+		<!-- Main wrapper ends -->
+		</div>
+	</div>
+	<!-- Modal starts -->
+	<div class="ui tiny modal credential-modal">
+		<i class="close icon"></i>
+				<div class="header">
+					<h3 class="ui header">Practo Credentials</h3>
+				</div>
+				<div class="ui grid padded">
+					<div class="ui row fluid icon input stackable padded">
+						<label class="ui eight wide column">Authtoken</label>
+						<div class="ui seven wide column">
+							<input type="text" name="Authtoken">
+						</div>
+					</div>
+					<div class="ui row fluid icon input stackable padded">
+						<label class="ui eight wide column">Organization id</label>
+						<div class="ui seven wide column">
+							<input type="text" name="Organization id">
+						</div>
+					</div>
+				</div>
+				<div class="actions">
+					<button type="button" class="ui button">Update</button>
+				</div>
+	</div>
+	<!-- Modal ends -->
+	<div class="ui tiny modal sync-modal">
+		<i class="close icon"></i>
+		<div class="header">
+			<h3 class="ui header">Log</h3>
+			<label>05-01-2018 <span class="details-title">Voucher Type:</span> Journal <span class="details-title">Voucher No:</span> BL000023 <span class="details-title">Other Details:</span> Bill No.BL000023 (MR No. MR000021)</label>
+		</div>
+		<div class="ui grid padded">
+			<div class="eight wide column left-block">
+				<div class="centered">
+					<div class="time">
+						<span title="Dec 12 2016 - 2:30 PM">Dec 12 2016 - 2:30 PM</span>
+						<span>
+							<img src="assets/images/tick.png" class="tick-block">
+						</span>
+					</div>
+					<div class="time">
+						<span title="Dec 12 2016 - 1:30 PM">Dec 12 2016 - 1:30 PM</span>
+						<span>
+							<img src="assets/images/cross.png" class="tick-block">
+						</span>
+					</div>
+					<div class="time">
+						<span title="Dec 12 2016 - 12:30 PM">Dec 12 2016 - 12:30 PM</span>
+						<span>
+							<img src="assets/images/cross.png" class="tick-block">
+						</span>
+					</div>
+					<div class="time">
+						<span title="Dec 12 2016 - 11:30 AM">Dec 12 2016 - 11:30 AM</span>
+						<span>
+							<img src="assets/images/cross.png" class="tick-block">
+						</span>
+					</div>
+				</div>
+			</div>
+			<div class="eight wide column">
+				<div class="time" title="Successfully synced."><span>Successfully synced.</span></div>
+				<div class="time" title="Network Error"><span>Network Error</span></div>
+				<div class="time" title="Incomplete data (Credit - Debit mismatch)"><span>Incomplete data (Credit - Debit mismatch)</span></div>
+				<div class="time" title="Incomplete data (Credit - Debit mismatch)"><span>Incomplete data (Credit - Debit mismatch)</span></div>
+			</div>
+			<div class="actions"></div>
+		</div>
+	</div>
+</body>
+</html>
