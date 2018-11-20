@@ -35,6 +35,7 @@ public class CallbackController {
     public String callBackFromOAuth(@RequestParam("code") String authCode, @RequestParam("state") String state, @RequestParam(value = "realmId", required = false) String realmId, HttpSession session) {   
        // logger.info("inside oauth2redirect of sample"  );
         try {
+        	System.out.println(authCode);
 	        String csrfToken = (String) session.getAttribute("csrfToken");
 	        if (csrfToken.equals(state)) {
 	            session.setAttribute("realmId", realmId);
@@ -48,7 +49,8 @@ public class CallbackController {
 				 
 	            session.setAttribute("access_token", bearerTokenResponse.getAccessToken());
 	            session.setAttribute("refresh_token", bearerTokenResponse.getRefreshToken());
-	    
+	            
+	            System.out.println(bearerTokenResponse.getAccessToken()+" "+bearerTokenResponse.getRefreshToken()+" "+realmId);
 	            // Update your Data store here with user's AccessToken and RefreshToken along with the realmId
 
 	            return "redirect:/";

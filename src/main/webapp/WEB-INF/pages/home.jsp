@@ -149,7 +149,7 @@
 				</div>			
 			</div>
 		<!-- Search filter section ends -->
-		<c:url var="pst_url"  value="/zoho" />
+		<c:url var="pst_url"  value="/quickbooks" />
 		<form:form method="post" action="${pst_url}" >
 			<div class="ui grid padded stackable">			 
 				<div class="eleven wide column details-division">

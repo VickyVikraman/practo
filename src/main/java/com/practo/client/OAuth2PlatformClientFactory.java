@@ -30,7 +30,6 @@ public class OAuth2PlatformClientFactory {
 		client  = new OAuth2PlatformClient(oauth2Config);
 	}
 	
-	
 	public OAuth2PlatformClient getOAuth2PlatformClient()  {
 		return client;
 	}

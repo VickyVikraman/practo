@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.intuit.ipp.data.JournalEntry;
 import com.practo.model.Journals;
 import com.practo.model.Search;
 
@@ -59,6 +60,13 @@ public class JournalsDAOImpl implements JournalsDAO {
 		}
 		framedQuery =  framedQuery.substring(0,framedQuery.length()-4);
 		return sessionFactory.getCurrentSession().createQuery("from Journals where " + framedQuery).list();
+	}
+
+	@Override
+	public Journals getJournalEntry(long journalEntryId) 
+	{
+		return (Journals) sessionFactory.getCurrentSession().get(
+				Journals.class, journalEntryId);
 	}
 
 }

@@ -62,7 +62,6 @@ public class AccountingApi {
 				zohoChartOfAccountService.save(chart_account);
 				//System.out.println(create.getAccountId());
 			}*/
-			
 			try {
 				ChartOfAccount create = chartOfAccountsApi.create(chartOfAccount);
 				if (zohoChartOfAccountService.findByAccountId(create.getAccountId()) != null) {
@@ -120,7 +119,7 @@ public class AccountingApi {
         				accountName = journalRecord.getCreditAccount();
         			}
         			
-        			if (accType.equalsIgnoreCase("debit")) {
+        			else if (accType.equalsIgnoreCase("debit")) {
         				accountName = journalRecord.getDebitAccount();
         			}
         		

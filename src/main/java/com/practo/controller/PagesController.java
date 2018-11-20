@@ -87,6 +87,7 @@ public class PagesController {
 		if(zohobooksConfigService.getAllZohoBooksConfig().iterator().hasNext()) {
 			authtoken = zohobooksConfigService.getAllZohoBooksConfig().iterator().next().getAuthToken();
 			organizationid = zohobooksConfigService.getAllZohoBooksConfig().iterator().next().getOrganizationId();
+			System.out.println(authtoken+" "+organizationid);
 		}
 		service.initialize(authtoken, organizationid);
 		return service;
@@ -221,6 +222,7 @@ public class PagesController {
 		}
 	 // Loop through journal ids
 		for(String idd: ids) {
+			
 			List<String> accountIds = new ArrayList<String>();
 			Map<String, String> map = new HashMap<String, String>();
 			Integer id =Integer.parseInt(idd);
@@ -257,7 +259,8 @@ public class PagesController {
 					/* else{*/
 						
 						
-						if (creditAccountId != null) {
+						if (creditAccountId != null) 
+						{
 							LineItem lineItem = new LineItem();							
 							lineItem.setAmount(record.getNetAmount().doubleValue());
 							lineItem.setAccountId(creditAccountId);

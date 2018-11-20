@@ -8,7 +8,6 @@ RC Practo: This file will have to be eventually removed when we deep integrate t
     version="3.0">
 
 	<display-name>Practo</display-name>
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring-servlet.xml</param-value>
