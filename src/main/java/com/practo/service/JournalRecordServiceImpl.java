@@ -29,4 +29,5 @@ public class JournalRecordServiceImpl implements JournalRecordService{
 	public List<JournalRecord> findByJournalId(Long journal_id) {
 		return journalRecordDAO.findByJournalId(journal_id);
 	}
+	
 }

@@ -31,4 +31,5 @@ public class JournalRecordDAOImpl implements JournalRecordDAO{
 	public List<JournalRecord> findByJournalId(Long journal_id) {
 		return sessionFactory.getCurrentSession().createQuery("from JournalRecord where journal_id="+journal_id).list();
 	}
+
 }

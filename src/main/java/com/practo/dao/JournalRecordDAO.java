@@ -11,5 +11,6 @@ public interface JournalRecordDAO {
 	public JournalRecord findByRecordGuid(String record_guid);
 	
 	public List<JournalRecord> findByJournalId(Long journal_id);
+	
 
 }

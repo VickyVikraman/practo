@@ -33,8 +33,8 @@ public class QBOServiceHelper {
 
 	public DataService getDataService(String realmId, String accessToken) throws FMSException {
 		
-    	String url = factory.getPropertyValue("IntuitAccountingAPIHost") + "/v3/company";
-
+//    	String url = factory.getPropertyValue("IntuitAccountingAPIHost") + "/v3/company";
+		String url = "https://sandbox-quickbooks.api.intuit.com/v3/company";
 		Config.setProperty(Config.BASE_URL_QBO, url);
 		//create oauth object
 		OAuth2Authorizer oauth = new OAuth2Authorizer(accessToken);
