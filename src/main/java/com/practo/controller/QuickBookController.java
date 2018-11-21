@@ -103,8 +103,9 @@ public class QuickBookController {
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/quickbooks",method=RequestMethod.POST)
 	public String sendToQBO(@RequestParam(value="ids[]") String[] ids,ModelAndView model,HttpSession session)throws FMSException, ParseException{	 
-		Long groupId ;
+		Long groupId = null ;
 		System.out.println("Token : "+session.getAttribute("access_token"));
+		Journals journal = null;
 		try 
 		{
 			DataService service = DataServiceFactory.getDataService(session);
@@ -120,13 +121,13 @@ public class QuickBookController {
 			List<Line> lineItems = new ArrayList<Line>();
 			JournalEntry entry=new JournalEntry();
 			double netAmount;
+			
 			for(String id:ids)
 			{
 				Integer journalId =Integer.parseInt(id);
-				Journals journal = journalEntryService.getJournalsEntry(new Long(journalId));	
-				if(journal.getStatus() == null || journal.getStatus() == false)
+				journal = journalEntryService.getJournalsEntry(new Long(journalId));	
+				if(journal.getStatus() == null || !journal.getStatus())
 				{
-					
 					Long jid = journal.getId();
 					List<JournalRecord> journalRecord = journalRecordService.findByJournalId(new Long(jid));
 					netAmount=0.00;
@@ -152,28 +153,20 @@ public class QuickBookController {
 //					JournalEntry journalentry = JournalEntryHelper.getJournalEntryFields(service);
 //					JournalEntry savedJournalEntry = service.add(journalentry);
 					
-					
-					try
-					{
-						JournalEntry saveEntry = service.add(entry);
-						JournalLog journalLogs = new JournalLog(new Date(), groupId, "In queue", "Success", journal.getId(), voucherId, guid);
-						journalLogService.addJournalLog(journalLogs);
-						journal.setStatus(true);
-						journalsService.addJournals(journal);
-					}
-					catch (FMSException e) {
-						
-						JournalLog journalLogs = new JournalLog(new Date(), groupId, "Failed", e.getMessage(), journal.getId(), voucherId, guid);
-						journalLogService.addJournalLog(journalLogs);
-						journal.setStatus(false);
-						journalsService.addJournals(journal);
-						System.out.println(e.getMessage());
-						
-					}
 				}
 			}
+			JournalEntry saveEntry = service.add(entry);
+			JournalLog journalLogs = new JournalLog(new Date(), groupId, "In queue", "Success", journal.getId(), voucherId, guid);
+			journalLogService.addJournalLog(journalLogs);
+			journal.setStatus(true);
+			journalsService.addJournals(journal);
 		}
 		catch (FMSException e) {
+			System.out.println(e.getMessage());
+			JournalLog journalLogs = new JournalLog(new Date(), groupId, "Failed", e.getMessage(), journal.getId(), voucherId, guid);
+			journalLogService.addJournalLog(journalLogs);
+			journal.setStatus(false);
+			journalsService.addJournals(journal);
 			System.out.println(e.getMessage());
 			
 		}
