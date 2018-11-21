@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8"/>
+	<link th:href="@{/assets/fonts/CamphorPro-Regular.ttf} "  rel="stylesheet">
+	<link th:href="@{/assets/fonts/CamphorPro-Bold.ttf}"  rel="stylesheet">
+	<script type="text/javascript" th:src="@{/assets/js/jquery-3.1.1.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/styles.css}">
+    <script type="text/javascript" th:src="@{/assets/js/semantic-2.2.13.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/semantic-2.2.13.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/datepicker.css}"/>
+    <script type="text/javascript" th:src="@{/assets/js/datepicker.js}"></script>
+</head>
+<body>
+	<div class="main-wrapper">
+		<!-- Header section starts -->
+		<div class="main-header ui items">
+			<div class="add-link">
+			<i class="sidebar icon hamburger-menu"></i>
+				<!-- <a id='credential-modal'> Add Zoho Account </a>
+				<span class="header-span"> | </span>
+				<a  href="tasks.html"> All Sync Requests </a> -->
+				<ul class="ui right header-ul">
+					<button class="home-btn">
+						<i class="home icon header-icons"></i> Home
+					</button>
+					<li>
+						<a class="home-btn" th:href="@{/logModal}"><i class="info icon header-icons custom-head-icon"></i> Export Logs</a>
+					</li>
+					<li>
+						<a class="home-btn" id="toast-danger"><i class="window close icon header-icons custom-head-icon"></i> Error sample </a>
+					</li>
+					<li>
+						<a class="home-btn" href="#"><i class="help icon header-icons"></i> Help</a>
+					</li>
+					<li>
+						<a class="home-btn" ><i class="user icon header-icons"></i> User</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </div>
+		
+	<div class="ui fullscreen modal audit-log-modal">
+		<a class="close pad0 modal-close" th:href="@{/}">Close</a>
+			<div class="header">
+				<h3 class="ui header">Audit Log</h3>
+			</div>
+			<div class="ui grid padded scrolling content custom-content">
+				<div class="ui row fluid icon input stackable pad0">
+				<form id="formdata" th:action="@{/logModal}" th:object="${logg}" method="post">
+					<div class="three wide column ui input pad-l0">
+						<label class="filter-label" style="padding: 10px 0;">Date (From)</label>
+						<input type="text" placeholder="dd/mm/yyyy" class="header-inputs-mobile datepicker fd" th:field="*{fromDate}">
+					</div>
+					<div class="three wide column ui input">
+						<label class="filter-label" style="padding: 10px 0;">Date (To)</label>
+						<input type="text" placeholder="dd/mm/yyyy" class="header-inputs-mobile datepicker td" th:field="*{endDate}">
+					</div>
+				</form>
+				</div><br><br>
+				<div class="ui sixteen wide column task-details-section pad0" th:if="${logdata.size() > 0}">
+					<div class="details-block pad0" th:each="sub : ${logdata}">
+						<div class="ui styled fluid accordion">
+						<div class="title">
+							<i class="dropdown icon"></i>
+							<div class="details-heading d-iblock">
+								<span class="modal-details-title">Export Date & Time: </span><label th:text="${sub.getValue()[0].get('sync_date') + ' ,'}"></label>
+								<span class="modal-details-title">Export Status: </span><label> Success ,</label>
+								<span class="modal-details-title">No. of Vouchers: </span><label th:text="${sub.getValue().size() + ' ,'}"></label>
+								<span class="modal-details-title">User: </span><label> InstaAdmin</label>
+							</div>
+						</div>
+						  <div class="content">
+						    <div class=" summary-table">
+								<table class="ui unstackable table lgg">
+									<thead>
+										<tr>
+											<th>Id</th>
+											<th>Voucher Type</th>
+											<th>Voucher No.</th>
+											<th>Other Details</th>
+											<th>Status</th>
+											<th>Particulars</th>
+											<th >Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="res : ${sub.getValue()}">
+											<td th:text="${res.get('group_id')}"></td>
+											<td th:text="${res.get('voucher_type')}"></td>
+											<td th:text="${res.get('voucher_id')}"></td>
+											<td th:text="${'Bill No.' + res.get('voucher_id') + '(MR No. MR000021: Child of Tejaswini Singh)'}"></td>
+											<td th:text="${res.get('sync_status')}"></td>
+											<td th:text="${res.get('credit_account')}"></td>
+											<td th:text="${res.get('voucher_id') + ', Child of Tejaswini Singh'}"></td>
+											<td class="text-left" th:text="${res.get('account_type') == 'debit'}? ${res.get('net_amount')} : '0.00'"></td>
+											<td class="text-left" th:text="${res.get('account_type') == 'credit'}? ${res.get('net_amount')} : '0.00'"></td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>	
+						</div>					
+					</div>
+				</div>
+			</div>
+		<div class="actions">
+			<a th:href="@{/}" class="ui button yellow">Ok</a>
+		</div>
+	</div>
+</body>
+</html>

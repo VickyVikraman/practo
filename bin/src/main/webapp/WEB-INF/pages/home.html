@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8"/>
+	<link th:href="@{/assets/fonts/CamphorPro-Regular.ttf} "  rel="stylesheet">
+	<link th:href="@{/assets/fonts/CamphorPro-Bold.ttf}"  rel="stylesheet">
+	<script type="text/javascript" th:src="@{/assets/js/jquery-3.1.1.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/styles.css}">
+    <script type="text/javascript" th:src="@{/assets/js/semantic-2.2.13.min.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/js/script.js}"></script>
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/semantic-2.2.13.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/assets/css/datepicker.css}"/>
+    <script type="text/javascript" th:src="@{/assets/js/datepicker.js}"></script>
+</head>
+<body>
+	<div class="main-wrapper">
+		<!-- Header section starts -->
+		<div class="main-header ui items">
+			<div class="add-link">
+			<i class="sidebar icon hamburger-menu"></i>
+				<!-- <a id='credential-modal'> Add Zoho Account </a>
+				<span class="header-span"> | </span>
+				<a  href="tasks.html"> All Sync Requests </a> -->
+				<ul class="ui right header-ul">
+					<button class="home-btn">
+						<i class="home icon header-icons"></i> Home
+					</button>
+					<li>
+						<a class="home-btn"><i class="info icon header-icons custom-head-icon"></i> Export Logs</a>
+					</li>
+					<li>
+						<a class="home-btn" id="toast-danger"><i class="window close icon header-icons custom-head-icon"></i> Error sample </a>
+					</li>
+					<li>
+						<a class="home-btn" href="#"><i class="help icon header-icons"></i> Help</a>
+					</li>
+					<li>
+						<a class="home-btn" ><i class="user icon header-icons"></i> User</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- Header section ends -->
+		<div class="ui grid">
+			<div id="snackbar" class="pad0">
+				<div class="ui row">
+				<i class="ui one wide column warning sign icon toast-danger-icon"></i>
+				<h6 class="d-iblock ui fourteen wide column mar0 toast-head">Accounting Export Failed.</h6>
+				<i class="close icon ui one wide column f-right" id="close-toast"></i>
+				</div>
+				<div class="toast-para">
+				<!-- 
+					RC codingmart : please change the place holder text.
+				  -->
+					<p>Body text: The quick brown fox jumps over the hungry lazy dog. The quick brown fox jumps over the hungry lazy dog. </p>
+				</div>
+			</div>
+		</div>
+		<!-- Main wrapper starts -->
+		<div class="main-wrapper">
+			<div class="ui top attached tabular menu">
+			  <div class="active item custom-tab">Accounting Export</div>
+			</div>
+			<div class="search-filter">
+				<p class="sub-title">Financial Accounting</p>
+			</div>
+
+			<!-- Search filter section starts -->
+			<div class="filter-section" id="stickyfilter">
+				<div class="search-header">
+					<label class="thick-label-medium">SEARCH RECORDS</label>
+					<button class="toggle-search button"><span id="toggle-label">Hide</span></button>
+				</div>
+				<div class="search-body">
+					<form th:action="@{/}" th:object="${search}" method="post">
+						<div class="ui six column wide doubling stackable grid filter-bar" style="margin: 0 15px; margin-bottom: 0 !important;">
+							<div class="two wide column ui input pad-l0">
+								<label class="filter-label">Voucher Date (From)</label>
+								<input type="text" placeholder="dd/mm/yyyy" class="header-inputs-mobile  datepicker" th:field="*{voucherFrom}">
+							</div>
+							<div class="two wide column ui input">
+								<label class="filter-label">Voucher Date (To)</label>
+								<input type="text" placeholder="dd/mm/yyyy" class="header-inputs-mobile  datepicker" th:field="*{voucherTo}">
+							</div>
+							<div class="two wide column ui input">
+								<label class="filter-label">Export for / Center</label>
+								<select class="ui compact selection dropdown filter-section-select header-inputs-mobile" name="select">
+									<option value="Hospital">Hospital / 001</option>
+								</select>
+							</div>
+							<div class="four wide column">
+								<label class="filter-label">Voucher Type</label>
+									<select class="ui fluid search select dropdown" id="voucher-types" multiple="multiple" th:field="*{voucherTypeList}">
+									<!-- 
+										RC Codingmart : if the values are coming from the voucherTypeList, above, do we still need this list of option list
+										Even so the values do not seem right. It should be taken from the actual voucher type strings used in the accounting table
+									 -->
+									<option value="Consignment Issue">Consignment Issue</option>
+									<option value="Hospbills">Hospbills</option>
+									<option value="Pharmacy Discount">Pharmacy Discount</option>
+									<option value="Inventory Transaction">Inventory Transaction</option>
+									<option value="Payment">Payment</option>
+									<option value="Payment Due">Payment Due</option>
+									<option value="Payment Due">Pharma Bills</option>
+									<option value="Payment Due">Purchase</option>
+									<option value="Receipt">Receipt</option>
+									<option value="Stock Consumption">Stock Consumption</option>
+									<option value="Stock Transfer">Stock Transfer</option>
+									<option value="Stock Returns">Stock Returns</option>
+									<option value="User / Department Issue">User / Department Issue</option>
+								</select>
+							</div>
+							<div class="wide column ui filter-buttons">
+								<button type="submit" class="ui button basic">Search</button>
+							</div>
+						</div>
+					</form>
+					
+					<div class="ui message message-container" th:if="${zohosyncmessage}!=''">
+					  <i class="close icon"></i>
+					  <span th:text="${zohosyncmessage}"></span>
+					</div>
+				</div>
+			</div>
+			<!-- Search filter section ends -->
+			<form method="post" th:action="@{/zoho}">
+			<div class="ui grid padded stackable">
+				<div class="eleven wide column details-division">
+				<!-- Details section starts -->
+					<div class="details-section" th:if="${results.size() > 0}">
+						<label class="thick-label-medium title-padding">VOUCHER DETAILS</label>
+						<div class="details-block" th:each="result,status : ${results}">
+							<div class="details-heading">
+									<input type="checkbox" class="hide" th:value="${result.id}" th:name="ids[]" checked>
+									<span class="details-title"></span><p class="table-head-label" th:text="${#dates.format(result.journalRecords[0].billOpenDate, 'dd-MM-yyyy HH:mm:ss')}"></p>
+									<span class="details-title">Voucher Type: </span><p class="table-head-label" th:text="${result.journalRecords[0].voucherType}"></p>
+									<span class="details-title">Voucher No: </span><p class="table-head-label" th:text="${result.journalRecords[0].voucherNo}"></p>
+									<!-- 
+									RC Codingmart : Hard coded string MR No. MR000021 : Child of ... looks amiss
+									 -->
+									<span class="details-title">Other Details: </span><p class="details-truncate table-head-label" th:text="${'Bill No.' + result.journalRecords[0].voucherNo + '(MR No. MR000021: Child of Tejaswini Singh)'}"></p>
+									<!-- 
+											RC Codingmart :Status seems to be hardcoded ?
+									 -->
+									<span class="exported green-color" th:if="${result.status == true}" th:data-parameter="${result.journalRecords[0].voucherNo}" th:text="Synced">Exported, 22-01-2018</span>
+									<div class="ui fluid popup">
+										<p th:text="${#dates.format(result.journalRecords[0].billOpenDate, 'dd-MM-yyyy HH:mm:ss')}">
+										<table class="hover-table">
+											<thead>
+												<tr class="hover-table">
+													<th></th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="hover-table" th:each="log : ${logs}" th:if="${log.voucherId == result.journalRecords[0].voucherNo}">
+													<td th:text="${#dates.format(log.syncDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+													<td th:text="${log.reason}"></td>
+												</tr>
+											</tbody>
+										</table>
+										
+										<!-- 
+										RC Codingmart : Error, date hard coded or place holder ?
+										 -->
+										
+									</div>
+									<span class="exported red-color" th:if="${result.status == false || result.status == null}" th:text="Error">Error, 22-01-2018</span>
+									<div class="ui fluid popup">
+										<p th:text="${result.journalRecords[0].billOpenDate}">
+										<table class="hover-table">
+											<thead>
+												<tr>
+													<th></th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="hover-table" th:each="log : ${logs}" th:if="${log.voucherId == result.journalRecords[0].voucherNo}">
+													<td th:text="${#dates.format(log.syncDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+													<td th:text="${log.reason}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+							</div>
+							<div class="details-table summary-table">
+								<table class="ui unstackable table">
+									<thead>
+										<tr>
+											<th>Particulars</th>
+											<th colspan="2">Reference Details:</th>
+											<th class="text-right">Debit</th>
+											<th class="text-right">Credit</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="journalRecord : ${result.journalRecords}">
+											<td th:text="${journalRecord.creditAccount}"></td>
+											<!-- 
+											RC Codingmart : This should come from bill no and patient_name	
+											-->
+											
+											<td colspan="2">BL000023, Child Tejaswi Singh</td>
+											<td class="text-right"><div th:text="${journalRecord.accountType=='debit'? journalRecord.netAmount : '0.00'}"></div></td>
+											<td class="text-right"><div th:text="${journalRecord.accountType=='credit'? journalRecord.netAmount : '0.00'}"></div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				<!-- Details section ends -->
+				</div>
+				<!-- Summary section starts -->
+					<div class="five wide column summary-block" th:if="${summary.size() > 0}">
+						<label class="thick-label-medium title-padding">SUMMARY</label><br>
+						<label class="thick-label-medium">Receipt and Claims</label>
+						<div class="summary-table">
+							<table class="table-bottom-no-border ui unstackable table">
+								<thead>
+									<tr>
+										<th colspan="3">Account</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="instance: ${summary}">
+										<td colspan="3" th:text="${instance.key}"></td>
+										<td class="text-right" th:each="val: ${instance.value}">
+											<div th:text="${val.key == 'debit' ? val.value : '0.00'}"></div>
+										</td>
+										<td class="text-right" th:each="val: ${instance.value}">
+											<div th:text="${val.key == 'credit' ? val.value : '0.00'}"></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+<!--  
+RC Codingmart : This will have to be hidden / removed eventually and the impact on layout if any should be set right
+-->
+					
+					<div class="ui tiny modal credential-modal">
+						<a class="close pad0 modal-close" th:href="@{/}">Close</a>
+								<div class="header">
+									<h3 class="ui header">Modify Credentials</h3>
+								</div>
+								<div class="ui grid padded">
+									<div class="ui row fluid icon input stackable padded">
+										<label class="ui eight wide column">Authtoken</label>
+										<div class="ui seven wide column">
+											<input type="text" name="Authtoken">
+										</div>
+									</div>
+									<div class="ui row fluid icon input stackable padded">
+										<label class="ui eight wide column">Organization id</label>
+										<div class="ui seven wide column">
+											<input type="text" name="Organization id">
+										</div>
+									</div>
+								</div>
+								<div class="actions">
+									<button type="button" class="ui button">Update</button>
+								</div>
+					</div>
+				<!-- Summary section ends -->
+				<div class="footer">
+					<a href="#" class="footer-link" th:href="@{/logModal}">Audit Log</a>
+					<a class="footer-link" id='credential-modal'>Modify Credentials</a>
+					<button type="submit" class="ui button basic f-right" id="zohoSync">Export</button>
+				</div>
+			</div>
+			</form>
+		</div>
+		<!-- Main wrapper ends -->
+	</div>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Practo</title>
+	<script type="text/javascript" src="<c:url value="/assets/js/jquery-3.1.1.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/assets/js/bootstrap.min.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/assets/js/bootstrap-multiselect.js" />" ></script>
+	<script type="text/javascript" src="<c:url value="/assets/js/datepicker.js" />" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/bootstrap.css" />" >
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/bootstrap-multiselect.css" />" >
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/datepicker.css" />" >
+	<link rel="stylesheet" type="text/css" href="<c:url value="/assets/css/styles.css" />" >
+	<link href="https://fonts.googleapis.com/css?family=Barlow" rel="stylesheet">
+	<script type="text/javascript" src="<c:url value="/assets/js/script.js" />" ></script>
+</head>
+<body>
+
+	<div class="container-fluid main-wrapper">
+		<!-- Header section starts -->
+		<div class="header">
+			<span class="pull-right add-link">
+				<a href="index.html">Search</a>
+			</span>
+		</div>
+		<!-- Header section ends -->
+
+		<!-- Main wrapper starts -->
+		<div class="main-wrapper">
+
+			<!-- Search filter section starts -->
+			<div class="search-filter">
+				<form>
+					<div class="task-head-bar">
+					<p class="sub-title d-iblock">All Sync Requests</p>
+					<div class="search-body pad-l0 ">
+						<div class="input-block pull-left pad-l0 d-iblock">
+							<label class="filter-label d-iblock">Task From</label>
+							<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker d-iblock" name="voucher_from_date">
+						</div>
+						<div class="input-block pull-left d-iblock">
+							<label class="filter-label d-iblock">Task To</label>
+							<input type="text" placeholder="dd/mm/yyyy" class="form-control width-140 datepicker d-iblock" name="voucher_to_date">
+						</div>
+						<div class="input-block filter-buttons pull-left">
+						<button class="btn button-transparent">Search</button>
+						</div>
+					</div>
+					</div>
+				</form>
+			</div>
+			<br>
+			<!-- Search filter section ends -->
+
+			<!-- Summary section starts -->
+			<div class="col-md-4 col-sm-12 pad-l0 table-pad-none">
+				<label class="thick-label-medium title-padding">SUMMARY</label><br>
+						<div class="summary-table">
+							<table class="table-bottom-no-border task-table">
+								<thead>
+									<tr>
+										<th colspan="3">Date</th>
+										<th class="text-right">Time</th>
+										<th class="text-right">Records</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-href='#'>
+										<td colspan="3">09-01-2018</td>
+										<td class="text-right">05:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">08-01-2018</td>
+										<td class="text-right">05:25 PM</td>
+										<td class="text-right"> Bill No.BL000023</
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">08-01-2018</td>
+										<td class="text-right">05:23 PM</td>
+										<td class="text-right"> Bill No.BL000023</
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">08-01-2018</td>
+										<td class="text-right">05:21 PM</td>
+										<td class="text-right"> Bill No.BL000023</
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">08-01-2018</td>
+										<td class="text-right">05:20 PM</td>
+										<td class="text-right"> Bill No.BL000023</
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">07-01-2018</td>
+										<td class="text-right">04:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">07-01-2018</td>
+										<td class="text-right">04:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">07-01-2018</td>
+										<td class="text-right">04:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-href='#'>
+										<td colspan="3">07-01-2018</td>
+										<td class="text-right">04:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-hred="#">
+										<td colspan="3">06-01-2018</td>
+										<td class="text-right">04:30 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+									<tr data-hred="#">
+										<td colspan="3">06-01-2018</td>
+										<td class="text-right">03:25 PM</td>
+										<td class="text-right"> Bill No.BL000023</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+			</div>
+			<!-- Summary section ends -->
+
+			<!-- Details section starts -->
+			<div class="col-md-8 col-sm-12 table-pad-r0">
+					<label class="thick-label-medium title-padding">NUMBER OF RECORDS (45)</label>
+				<div class="details-section task-details-section">
+					<div class="details-block">
+						<div class="details-heading" id="first-head">
+								<label>05-01-2018</label>
+								<span class="details-title">Voucher Type: </span><label> Journal</label>
+								<span class="details-title">Voucher No: </span><label> BL000023</label>
+								<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No.BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+								<span class="sync-block">
+									<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal">Synced</a>
+									<span><img th:src="@{/images/tick.png}" class="tick"></span>
+								</span>
+						</div>
+						<div class="summary-table task-accordion" id="first-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Particulars</th>
+										<th colspan="2">Reference Details:</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Counter Reciepts</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td>IP IncomePharmacy Credit Sales</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="details-block">
+						<div class="details-heading" id="second-head">
+							<label>05-01-2018</label>
+							<span class="details-title">Voucher Type: </span><label> Journal</label>
+							<span class="details-title">Voucher No: </span><label> BL000023</label>
+							<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+							<span class="sync-block">
+								<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal">Unsynced</a>
+								<span><img th:src="@{/images/cross.png}" class="cross"></span>
+							</span>
+						</div>
+						<div class="summary-table task-accordion" id="second-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Particulars</th>
+										<th colspan="2">Reference Details</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Counter Reciepts</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td>IP IncomePharmacy Credit Sales</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="details-block">
+						<div class="details-heading" id="third-head">
+							<label>05-01-2018</label>
+							<span class="details-title">Voucher Type: </span><label> Journal</label>
+							<span class="details-title">Voucher No: </span><label> BL000023</label>
+							<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+							<span class="sync-block">
+									<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal">Synced</a>
+									<span><img th:src="@{/images/tick.png}" class="tick"></span>
+							</span>
+						</div>
+						<div class="summary-table task-accordion" id="third-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Particulars</th>
+										<th colspan="2">Reference Details</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Counter Reciepts</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td>IP IncomePharmacy Credit Sales</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="details-block">
+						<div class="details-heading" id="fourth-head">
+								<label>05-01-2018</label>
+								<span class="details-title">Voucher Type: </span><label> Journal</label>
+								<span class="details-title">Voucher No: </span><label> BL000023</label>
+								<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+								<span class="sync-block">
+									<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal">Synced</a>
+									<span><img th:src="@{/images/tick.png}" class="tick"></span>
+								</span>
+						</div>
+						<div class="summary-table task-accordion" id="fourth-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Particulars</th>
+										<th colspan="2">Reference Details:</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Counter Reciepts</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td>IP IncomePharmacy Credit Sales</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="details-block">
+						<div class="details-heading" id="fifth-head">
+								<label>05-01-2018</label>
+								<span class="details-title">Voucher Type: </span><label> Journal</label>
+								<span class="details-title">Voucher No: </span><label> BL000023</label>
+								<span class="details-title">Other Details: </span><label class="details-truncate" title="Bill No. BL000023(MR No. MR000021: Child of Tejaswini Singh)"> Bill No. BL000023 (MR No. MR000021: Child of Tejaswini Singh)</label>
+								<span class="sync-block">
+									<a class="sync-modal-link" data-toggle="modal" data-target="#sync-modal">Unsynced</a>
+									<span><img th:src="@{/images/cross.png}" class="cross"></span>
+								</span>
+						</div>
+						<div class="summary-table task-accordion" id="fifth-body">
+							<table>
+								<thead>
+									<tr>
+										<th>Particulars</th>
+										<th colspan="2">Reference Details:</th>
+										<th class="text-right">Debit</th>
+										<th class="text-right">Credit</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Counter Reciepts</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+									<tr>
+										<td>IP IncomePharmacy Credit Sales</td>
+										<td colspan="2">BL000023, Child Tejaswi Singh</td>
+										<td class="text-right">0.00</td>
+										<td class="text-right">0.00</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Details section ends -->
+		<!-- Main wrapper ends -->
+		</div>
+	</div>
+	<!-- Footer section starts -->
+	<!--   <div class="footer text-right">
+		<button class="btn button-transparent" id="zohoSync">Sync to Zoho</button>
+	</div> -->
+	<!-- Footer section ends -->
+	<!-- Modal starts -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Add Task</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Task Name</label>
+						<input type="text" class="form-control">
+					</div>
+					<div class="form-group">
+						<label>Details</label>
+						<input type="text" class="form-control">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default">Add</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+			<!-- Modal Content ends -->
+		</div>
+	</div>
+	<!-- Modal ends -->
+	<div class="modal fade" id="sync-modal" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Log</h4>
+					<br>
+					<label>05-01-2018 <span class="details-title">Voucher Type:</span> Journal <span class="details-title">Voucher No:</span> BL000023 <span class="details-title">Other Details:</span> Bill No.BL000023 (MR No. MR000021)</label>
+				</div>
+				<div class="modal-body pad0">
+					<div class="modal-footer">
+						<div class="col-sm-6 col-xs-6 left-block pad0">
+							<div class="time">
+								<span title="Dec 12 2016 - 2:30 PM">Dec 12 2016 - 2:30 PM</span>
+								<span>
+									<img th:src="@{/images/tick.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 1:30 PM">Dec 12 2016 - 1:30 PM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 12:30 PM">Dec 12 2016 - 12:30 PM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+							<div class="time">
+								<span title="Dec 12 2016 - 11:30 AM">Dec 12 2016 - 11:30 AM</span>
+								<span>
+									<img th:src="@{/images/cross.png}" class="tick-block">
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6 col-xs-6 d-iblock pad0">
+							<div class="time" title="Successfully synced.">Successfully synced.</div>
+							<div class="time" title="Network Error">Network Error</div>
+							<div class="time" title="Incomplete data (Credit - Debit mismatch)">Incomplete data (Credit - Debit mismatch)</div>
+							<div class="time" title="Incomplete data (Credit - Debit mismatch)">Incomplete data (Credit - Debit mismatch)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Modal Content ends -->
+		</div>
+	</div>
+</body>
+</html>
