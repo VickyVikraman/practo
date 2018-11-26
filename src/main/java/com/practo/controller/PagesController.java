@@ -8,11 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -95,10 +96,17 @@ public class PagesController {
 	
 	@SuppressWarnings("rawtypes")
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String listJournals(Model model) throws IOException {
+	public String listJournals(Model model,HttpSession session) throws IOException {
 		Map<String, Map> summary = new HashMap<String, Map>();
 		List<Journals> results = new ArrayList<>();
 //		List<Log> data = new ArrayList<>();
+		if(session.getAttribute("access_token")!=null)
+		{
+			model.addAttribute("url", "/quickbooks");
+		}
+		else {
+			model.addAttribute("url", "/zoho");
+		}
 		if(model.asMap().get("results") == null) {
 			model.addAttribute("results", new ArrayList<JournalRecord>());
 		}
@@ -134,7 +142,7 @@ public class PagesController {
 	//
 	@SuppressWarnings({ "unused", "rawtypes" })
 	@RequestMapping(value="/", method = RequestMethod.POST)
-	public ModelAndView filterdata(@ModelAttribute("search") Search search,ModelAndView model) {
+	public ModelAndView filterdata(@ModelAttribute("search") Search search,ModelAndView model,HttpSession session) {
 	   List<Journals> resultList = new ArrayList<>();
 	   List<Journals> result = new ArrayList<>();
 	   Iterable<JournalLog> log = journalLogService.getAllJournalLogs();
@@ -183,6 +191,13 @@ public class PagesController {
 	   model.addObject("summary", map);
 	   model.addObject("logs",log);
 	   model.addObject("search", search);
+	   if(session.getAttribute("access_token") != null)
+	   {
+		   model.addObject("url", "/quickbooks");
+	   }
+	   else {
+		   model.addObject("url", "/zoho");
+	   }
 	   model.setViewName("home");
 	   return model;
 	}
