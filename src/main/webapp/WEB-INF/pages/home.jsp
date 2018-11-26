@@ -149,7 +149,7 @@
 				</div>			
 			</div>
 		<!-- Search filter section ends -->
-		<c:url var="pst_url"  value="/quickbooks" />
+		<c:url var="pst_url"  value="${url}" />
 		<form:form method="post" action="${pst_url}" >
 			<div class="ui grid padded stackable">			 
 				<div class="eleven wide column details-division">
