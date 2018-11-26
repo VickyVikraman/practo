@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -131,7 +132,7 @@ public class QuickBookController {
 					Long jid = journal.getId();
 					List<JournalRecord> journalRecord = journalRecordService.findByJournalId(new Long(jid));
 					netAmount=0.00;
-					for(JournalRecord record : journalRecord)
+					for( JournalRecord record: journalRecord)
 					{
 						netAmount += record.getNetAmount(); 
 						voucherId = record.getVoucherNo();
