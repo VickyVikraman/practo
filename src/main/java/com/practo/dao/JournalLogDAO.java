@@ -2,9 +2,11 @@ package com.practo.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.practo.model.JournalLog;
 
-public interface JournalLogDAO {
+public interface JournalLogDAO{
 	
 	public List<JournalLog> getAllJournalLogs();
 	

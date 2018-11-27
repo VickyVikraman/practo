@@ -12,5 +12,6 @@ public interface JournalRecordDAO {
 	
 	public List<JournalRecord> findByJournalId(Long journal_id);
 	
+	public Double getNetAmount(Long journal_id);
 
 }

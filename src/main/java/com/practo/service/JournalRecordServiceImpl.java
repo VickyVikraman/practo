@@ -29,5 +29,12 @@ public class JournalRecordServiceImpl implements JournalRecordService{
 	public List<JournalRecord> findByJournalId(Long journal_id) {
 		return journalRecordDAO.findByJournalId(journal_id);
 	}
+
+	@Override
+	public Double getNetAmount(Long journal_id) {
+		
+		return journalRecordDAO.getNetAmount(journal_id);
+		
+	}
 	
 }

@@ -25,7 +25,6 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 
-import com.intuit.developer.sampleapp.crud.helper.*;
 //import com.insta.integration.accounting.quick.books.model.JournalEntry;
 import com.insta.integration.accounting.quick.books.qbo.DataServiceFactory;
 import com.insta.integration.accounting.zoho.books.model.Journal;
@@ -121,7 +120,7 @@ public class QuickBookController {
 			Map<String, String> map = new HashMap<String, String>();
 			List<Line> lineItems = new ArrayList<Line>();
 			JournalEntry entry=new JournalEntry();
-			double netAmount;
+			Double netAmount;
 			
 			for(String id:ids)
 			{
@@ -131,38 +130,34 @@ public class QuickBookController {
 				{
 					Long jid = journal.getId();
 					List<JournalRecord> journalRecord = journalRecordService.findByJournalId(new Long(jid));
-					netAmount=0.00;
-					for( JournalRecord record: journalRecord)
-					{
-						netAmount += record.getNetAmount(); 
-						voucherId = record.getVoucherNo();
-						 guid = record.getGuid();
-						 if(voucherId.equals("RA038033")) {
-							voucherId = "AB16000504";
-						 }
-					}
-					Line line1=getDebitLineItem(netAmount,journalRecord.get(0),journal);
-					lineItems.add(line1);
+//					for( JournalRecord record: journalRecord)
+//					{
+//						netAmount += record.getNetAmount(); 
+//					}
+					netAmount = journalRecordService.getNetAmount(new Long(jid));
+					voucherId = journalRecord.get(0).getVoucherNo();
+					 guid = journalRecord.get(0).getGuid();
+					 if(voucherId.equals("RA038033")) {
+						voucherId = "AB16000504";
+					 }
+					Line debitLineItem=getDebitLineItem(netAmount,journalRecord.get(0),journal);
+					lineItems.add(debitLineItem);
 					
-					Line line=getCreditLineItem(netAmount,journalRecord.get(0),journal);
-					lineItems.add(line);
+					Line creditLineItem=getCreditLineItem(netAmount,journalRecord.get(0),journal);
+					lineItems.add(creditLineItem);
 					
 					entry.setLine(lineItems);
-					System.out.println("Before Add");
 					
-					// add journalentry
-//					JournalEntry journalentry = JournalEntryHelper.getJournalEntryFields(service);
-//					JournalEntry savedJournalEntry = service.add(journalentry);
-					
+					JournalLog journalLogs = new JournalLog(new Date(), groupId, "In queue", "Success", journal.getId(), voucherId, guid);
+					journalLogService.addJournalLog(journalLogs);
+					journal.setStatus(true);
+					journalsService.addJournals(journal);
 				}
 			}
 			JournalEntry saveEntry = service.add(entry);
-			JournalLog journalLogs = new JournalLog(new Date(), groupId, "In queue", "Success", journal.getId(), voucherId, guid);
-			journalLogService.addJournalLog(journalLogs);
-			journal.setStatus(true);
-			journalsService.addJournals(journal);
 		}
 		catch (FMSException e) {
+			
 			System.out.println(e.getMessage());
 			JournalLog journalLogs = new JournalLog(new Date(), groupId, "Failed", e.getMessage(), journal.getId(), voucherId, guid);
 			journalLogService.addJournalLog(journalLogs);

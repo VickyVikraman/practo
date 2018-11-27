@@ -32,4 +32,9 @@ public class JournalRecordDAOImpl implements JournalRecordDAO{
 		return sessionFactory.getCurrentSession().createQuery("from JournalRecord where journal_id="+journal_id).list();
 	}
 
+	@Override
+	public Double getNetAmount(Long journal_id) {
+		return (Double) sessionFactory.getCurrentSession().createQuery("SELECT SUM(netAmount) FROM JournalRecord where journal_id="+journal_id).uniqueResult();
+	}
+
 }
