@@ -1,11 +1,8 @@
 package com.practo.controller;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,10 +10,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.RandomStringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,14 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
-
 //import com.insta.integration.accounting.quick.books.model.JournalEntry;
 import com.insta.integration.accounting.quick.books.qbo.DataServiceFactory;
-import com.insta.integration.accounting.zoho.books.model.Journal;
-//import com.insta.integration.accounting.quick.books.helper.JournalEntryHelper;
-import com.intuit.ipp.data.Account;
-import com.intuit.ipp.data.EntityTypeEnum;
-import com.intuit.ipp.data.EntityTypeRef;
 import com.intuit.ipp.data.JournalEntry;
 import com.intuit.ipp.data.JournalEntryLineDetail;
 import com.intuit.ipp.data.Line;
@@ -100,6 +90,15 @@ public class QuickBookController {
 		return null;
 	}
 	
+	/** controller mapping for exporting to quickbooks by clicking export button after enter into quickbook view 
+	 * 
+	 * @param ids
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws FMSException
+	 * @throws ParseException
+	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/quickbooks",method=RequestMethod.POST)
 	public String sendToQBO(@RequestParam(value="ids[]") String[] ids,ModelAndView model,HttpSession session)throws FMSException, ParseException{	 
@@ -130,10 +129,6 @@ public class QuickBookController {
 				{
 					Long jid = journal.getId();
 					List<JournalRecord> journalRecord = journalRecordService.findByJournalId(new Long(jid));
-//					for( JournalRecord record: journalRecord)
-//					{
-//						netAmount += record.getNetAmount(); 
-//					}
 					netAmount = journalRecordService.getNetAmount(new Long(jid));
 					voucherId = journalRecord.get(0).getVoucherNo();
 					 guid = journalRecord.get(0).getGuid();
@@ -181,46 +176,50 @@ public class QuickBookController {
 	}
 	
 	/* Getting line items by below two methods getCreditLineItem and getDebitLineItem */
+	/** its function for getcreditline item from sendToQB method 
+	 * 
+	 * @param netAmount
+	 * @param record
+	 * @param journal
+	 * @return
+	 * @throws FMSException
+	 */
 	public Line getCreditLineItem(double netAmount,JournalRecord record,Journals journal) throws FMSException{
 		
 		
 		Line line=new Line();
-		
 		line.setDescription(journal.getVoucherType()+" - "+record.getVoucherNo());
-		
-		
 		line.setAmount(new BigDecimal(netAmount));
-		
 		line.setDetailType(LineDetailTypeEnum.JOURNAL_ENTRY_LINE_DETAIL);
 		
 		JournalEntryLineDetail journalEntryLineDetail=new JournalEntryLineDetail();
 		journalEntryLineDetail.setPostingType(PostingTypeEnum.CREDIT);
-		
+	
 		ReferenceType ref=new ReferenceType();
 		ref.setValue("2");
 		ref.setName(record.getVoucherRef());
 		journalEntryLineDetail.setAccountRef(ref);
-		  
-        line.setJournalEntryLineDetail(journalEntryLineDetail);
 		
-		System.out.println(line.getAmount());
-
+        line.setJournalEntryLineDetail(journalEntryLineDetail);
 		return line;
 	}
 	
+	/** its function for getdebitline Item from sendToQB method
+	 * 
+	 * @param netAmount
+	 * @param record
+	 * @param journal
+	 * @return
+	 * @throws FMSException
+	 * @throws ParseException
+	 */
 	public Line getDebitLineItem(double netAmount,JournalRecord record,Journals journal) throws FMSException, ParseException{
 		
 		
-		Line line1=new Line();
-		System.out.println("debit not null");
-		
+		Line line1=new Line();		
 		line1.setId(journal.getId().toString());
-		
 		line1.setDescription(journal.getVoucherType()+" - " +record.getVoucherNo());
-		
-		
 		line1.setAmount(new BigDecimal(netAmount));
-		
 		line1.setDetailType(LineDetailTypeEnum.JOURNAL_ENTRY_LINE_DETAIL);
 		
 		JournalEntryLineDetail journalEntryLineDetail1=new JournalEntryLineDetail();
