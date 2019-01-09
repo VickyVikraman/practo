@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,6 @@ import com.practo.quick.books.service.JournalEntryService;
 import com.practo.service.JournalLogService;
 import com.practo.service.JournalRecordService;
 import com.practo.service.JournalsService;
-import com.practo.service.ZohoChartOfAccountService;
 
 @Controller
 public class QuickBookController {
@@ -63,8 +61,6 @@ public class QuickBookController {
 	@Autowired
 	private JournalRecordService journalRecordService;
 	
-	@Autowired
-	private ZohoChartOfAccountService accountService;
 	/**
 	 * Controller mapping for connectToQuickbooks button
 	 * @return
@@ -213,8 +209,8 @@ public class QuickBookController {
 	 * @throws FMSException
 	 * @throws ParseException
 	 */
-	public Line getDebitLineItem(double netAmount,JournalRecord record,Journals journal) throws FMSException, ParseException{
-		
+	public Line getDebitLineItem(double netAmount,JournalRecord record,Journals journal) throws FMSException, ParseException
+	{	
 		
 		Line line1=new Line();		
 		line1.setId(journal.getId().toString());
